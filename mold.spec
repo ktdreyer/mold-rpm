@@ -1,3 +1,5 @@
+%bcond_with system_libs
+
 %global forgeurl https://github.com/rui314/mold
 Version:        1.0.1
 %forgemeta
@@ -14,8 +16,11 @@ BuildRequires:  clang
 BuildRequires:  cmake
 BuildRequires:  libstdc++-devel
 BuildRequires:  pkgconfig(openssl)
-BuildRequires:  pkgconfig(libxxhash)
 BuildRequires:  pkgconfig(zlib)
+%if 0%{with system_libs}
+BuildRequires:  pkgconfig(libxxhash)
+BuildRequires:  pkgconfig(tbb)
+%endif
 
 %description
 mold is a faster drop-in replacement for existing Unix linkers. It is several
@@ -29,12 +34,18 @@ cycles.
 %build
 %{set_build_flags}
 make %{?_smp_mflags} \
+%if 0%{with system_libs}
+  SYSTEM_TBB=1 SYSTEM_XXHASH=1 \
+%endif
   STRIP=/usr/bin/echo \
   PREFIX=%{_prefix} \
   LIBDIR=%{_libdir}
 
 %install
 make install %{?_smp_mflags} \
+%if 0%{with system_libs}
+  SYSTEM_TBB=1 SYSTEM_XXHASH=1 \
+%endif
   STRIP=/usr/bin/echo \
   DESTDIR=%{buildroot} \
   PREFIX=%{_prefix} \
