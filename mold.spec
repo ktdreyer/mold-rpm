@@ -12,8 +12,7 @@ License:        AGPLv3
 URL:            %{forgeurl}
 Source:         %{forgesource}
 
-%global toolchain clang
-BuildRequires:  clang
+BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  libstdc++-devel
 BuildRequires:  pkgconfig(openssl)
