@@ -1,7 +1,7 @@
 %bcond_with system_libs
 
 %global forgeurl https://github.com/rui314/mold
-%global commit 1acabd65e30f40dc178e9b568f0e924f41723083
+%global commit b6316ef085b3416d9e5af273c2e1abf724c9561c
 Version:        1.0.1
 %forgemeta
 
