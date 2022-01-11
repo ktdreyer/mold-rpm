@@ -12,9 +12,15 @@ License:        AGPLv3
 URL:            %{forgeurl}
 Source:         %{forgesource}
 
+%if 0%{?el8}
+BuildRequires:  gcc-toolset-11
+BuildRequires:  gcc-toolset-11-annobin-plugin-gcc
+BuildRequires:  gcc-toolset-11-libstdc++-devel
+%else
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 BuildRequires:  libstdc++-devel
+%endif
+BuildRequires:  cmake
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(zlib)
 %if 0%{with system_libs}
@@ -33,6 +39,9 @@ cycles.
 
 %build
 %{set_build_flags}
+%if 0%{?el8}
+. /opt/rh/gcc-toolset-11/enable
+%endif
 make %{?_smp_mflags} \
 %if 0%{with system_libs}
   SYSTEM_TBB=1 SYSTEM_XXHASH=1 \
